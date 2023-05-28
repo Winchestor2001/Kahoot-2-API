@@ -4,7 +4,7 @@ from .models import *
 
 @admin.register(GameQuiz)
 class GameQuizAdmin(admin.ModelAdmin):
-    list_display = ['game', 'timer', 'score']
+    list_display = ['question_num', 'game', 'timer', 'score']
 
 
 @admin.register(Game)

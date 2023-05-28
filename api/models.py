@@ -3,10 +3,10 @@ from django.db import models
 
 
 class GameQuiz(models.Model):
+    question_num = models.IntegerField(default=0)
     game = models.ForeignKey('Game', on_delete=models.CASCADE)
     question = models.CharField(max_length=255)
     media = models.ImageField(null=True, upload_to='quiz_media/', blank=True)
-    game_token = models.ForeignKey('GroupSession', on_delete=models.CASCADE, null=True, blank=True)
     variant_1 = models.CharField(max_length=255)
     variant_2 = models.CharField(max_length=255)
     variant_3 = models.CharField(max_length=255, null=True)
@@ -17,6 +17,9 @@ class GameQuiz(models.Model):
 
     def __str__(self):
         return self.game.title
+
+    class Meta:
+        ordering = ['question_num']
 
 
 class Game(models.Model):
@@ -38,9 +41,10 @@ class GroupSession(models.Model):
 
 class Student(models.Model):
     nickname = models.CharField(max_length=255)
-    avatar = models.CharField(max_length=255)
-    score = models.IntegerField()
-    game_token = models.ForeignKey(GroupSession, on_delete=models.CASCADE)
+    avatar = models.ForeignKey("BioIcons", on_delete=models.CASCADE)
+    score = models.IntegerField(default=0)
+    token = models.CharField(max_length=255, blank=True, null=True)
+    game = models.ForeignKey("Game", on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.nickname
@@ -49,5 +53,3 @@ class Student(models.Model):
 class BioIcons(models.Model):
     image = models.ImageField(null=True, upload_to='icons/')
 
-    def __str__(self):
-        return self.image
