@@ -1,6 +1,7 @@
 import random
 from uuid import uuid4
 
+from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -82,5 +83,4 @@ class StartGameSessionAPI(APIView):
         question = GameQuiz.objects.filter(game=game.game.id)
         serializer = GameQuizSerializer(instance=question[0])
         return Response(serializer.data, status=200)
-
 
