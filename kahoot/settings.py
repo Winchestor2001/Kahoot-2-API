@@ -69,7 +69,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'kahoot.wsgi.application'
+# WSGI_APPLICATION = 'kahoot.wsgi.application'
+ASGI_APPLICATION = 'kahoot.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
